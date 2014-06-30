@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="bower_components/angular/angular.js"></script>
+    <script type="text/javascript" src="bower_components/ng-table/ng-table.js"></script>
+    
+    <link data-require="ng-table@*" data-semver="0.3.1" rel="stylesheet" href="http://bazalt-cms.com/assets/ng-table/0.3.1/ng-table.css" />
+    <link rel="stylesheet" href="styles/bootstrap.css">
+    
+    <!-- <link rel="stylesheet" href="style.css" /> -->
+    <script src="testScript.js"></script>
+</head>
+<body ng-app="main">
+    <div ng-controller="DemoCtrl">
+    
+        <p>Example from <a target="_blank" href="https://github.com/tlierfeld">tlierfeld</a></p>
+        <button ng-click="tableParams.sorting({})" class="btn btn-default pull-right">Clear sorting</button>
+        <button ng-click="tableParams.filter({})" class="btn btn-default pull-right">Clear filter</button>
+        <p><strong>Sorting:</strong> {{tableParams.sorting()|json}}
+        <p><strong>Filter:</strong> {{tableParams.filter()|json}}
+    
+    
+        <table ng-table="tableParams" show-filter="true" class="table">
+            <tr ng-repeat="user in $data">
+                <td data-title="'Name'" sortable="'name'" filter="{ 'name': 'text' }">
+                    {{user.name}}
+                </td>
+                <td data-title="'Age'" sortable="'age'" filter="{ 'age': 'text' }">
+                    {{user.age}}
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html> 
