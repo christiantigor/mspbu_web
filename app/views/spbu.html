@@ -1,0 +1,225 @@
+<div id="wrapper" ng-init="initspbu()">
+
+	<nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="index.html">BPMigas</a>
+		</div>
+		<!-- /.navbar-header -->
+
+		<ul class="nav navbar-top-links navbar-right">
+			<li class="dropdown">
+				<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+					<i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+				</a>
+				<ul class="dropdown-menu dropdown-messages">
+					<li><a href=""><i class="fa fa-user fa-fw"></i> User Profile</a>
+					</li>
+					<li><a href=""><i class="fa fa-gear fa-fw"></i> Settings</a>
+					</li>
+					<li class="divider"></li>
+					<li ng-click="go('/login')"><a href=""><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+					</li>
+				</ul>
+				<!-- /.dropdown-user -->
+			</li>
+			<!-- /.dropdown -->
+		</ul>
+		<!-- /.navbar-top-links -->
+
+		<div class="navbar-default navbar-static-side" role="navigation">
+			<div class="sidebar-collapse">
+				<ul class="nav" id="side-menu">
+					<li ng-click="go('/')">
+						<a href=""><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+					</li>
+					<li ng-click="go('/listspbu')">
+						<a href=""><i class="fa fa-users fa-fw"></i> List SPBU</a>
+					</li>
+				</ul>
+				<!-- /#side-menu -->
+			</div>
+			<!-- /.sidebar-collapse -->
+		</div>
+		<!-- /.navbar-static-side -->
+	</nav>
+
+	<div id="page-wrapper">
+		<div class="row">
+			<div class="col-lg-12" style="margin-bottom:20px">
+				<div class="tabbable tabs-below">
+					<ul class="nav nav-pills" ng-init="selectedTab = 1">
+						<li ng-class="{active: selectedTab == 1}">
+						    <a ng-click="selectedTab = 1;">Overview</a>
+					    </li>
+					    <li ng-class="{active: selectedTab == 2}">
+						    <a ng-click="selectedTab = 2;">SPP and Stock</a>
+					    </li>
+						<li ng-class="{active: selectedTab == 3}">
+						    <a ng-click="selectedTab = 3;">Dispenser</a>
+					    </li>
+					</ul>
+					<div class="tab-content" ng-show="selectedTab == 1">
+						<div class="row">
+							<div class="col-lg-12">
+								<h2 class="page-header">Overview</h2>
+							</div>
+							<!-- /.col-lg-12 -->
+						</div>
+						<!-- /.row -->
+						<div class="row">
+							<div class="col-lg-7" style="margin-bottom:20px">
+								<leaflet center="center" markers="markerSelectedspbu" defaults="defaults" height="380px"></leaflet>
+							</div>
+							<div class="col-lg-5">
+								<h3>SPBU Information</h3>
+								<h5><strong>ID</strong>: {{selectedspbu.id}}</h5>
+								<h5><strong>Address</strong>: {{selectedspbu.addr}}</h5>
+								<h5><strong>Owner</strong>: {{selectedspbu.owner}}</h5>
+								<h3>SPBU Performance</h3>
+								<h5><strong>Avg. SPP per week</strong>: {{addDot(selectedspbu.totSpp)}} L</h5>
+								<h5><strong>Avg. SPP per month</strong>: {{addDot(selectedspbu.totSpp)}} L</h5>
+								<table class="table table-striped table-bordered table-hover">
+									<tr>
+										<td></td>
+										<th>Daily</th>
+										<th>Weekly</th>
+										<th>Monthly</th>
+									</tr>
+									<tr>
+										<th>Premium (L)</th>
+										<td style="text-align:right">{{addDot(selectedspbu.totSpp)}}</td>
+										<td style="text-align:right">{{addDot(selectedspbu.totSpp)}}</td>
+										<td style="text-align:right">{{addDot(selectedspbu.totSpp)}}</td>
+									</tr>
+									<tr>
+										<th>Solar</th>
+										<td style="text-align:right">{{addDot(selectedspbu.totSpp)}}</td>
+										<td style="text-align:right">{{addDot(selectedspbu.totSpp)}}</td>
+										<td style="text-align:right">{{addDot(selectedspbu.totSpp)}}</td>
+									</tr>
+									<tr>
+										<th>Pertamax</th>
+										<td style="text-align:right">{{addDot(selectedspbu.totSpp)}}</td>
+										<td style="text-align:right">{{addDot(selectedspbu.totSpp)}}</td>
+										<td style="text-align:right">{{addDot(selectedspbu.totSpp)}}</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+						<!-- /.row -->
+						<div class="row">
+							<div class="col-lg-12">
+								<h2 class="page-header">Suspicious Events</h2>
+							</div>
+							<!-- /.col-lg-12 -->
+						</div>
+						<!-- /.row -->
+						<div class="row">
+							<div class="col-lg-12">
+								<div ui-calendar="uiConfig.calendar" ng-model="eventSources">
+								</div>
+							</div>
+							<!-- /.col-lg-12 -->
+						</div>
+						<!-- /.row -->
+					</div>
+					<div class="tab-content" ng-show="selectedTab == 2">
+						<div class="row">
+							<div class="col-lg-12">
+								<h2 class="page-header">List of SPP</h2>
+								<!-- <button ng-click="sppTableParams.sorting({})" class="btn btn-default pull-right">Clear sorting</button>
+								<button ng-click="sppTableParams.filter({})" class="btn btn-default pull-right">Clear filter</button>
+								<p><strong>Sorting:</strong> {{sppTableParams.sorting()|json}}
+								<p><strong>Filter:</strong> {{sppTableParams.filter()|json}}
+
+								<p>sppTableParams:{{sppTableParams}}</p> -->
+
+								<table ng-table="sppTableParams" show-filter="true" class="table">
+									<tr ng-repeat="s in $data">
+										<td style="text-align:right" data-title="'Id'" sortable="'id'" filter="{ 'id': 'text' }">
+											{{s.id}}
+										</td>
+										<td style="text-align:right" data-title="'Shipment Date'" sortable="'shipmentDtTm'" filter="{ 'shipmentDtTm': 'text' }">
+											{{s.shipmentDtTm}}
+										</td>
+										<td style="text-align:right" data-title="'Ritase'" sortable="'ritase'" filter="{ 'ritase': 'text' }">
+											{{s.ritase}}
+										</td>
+										<td style="text-align:right" data-title="'Amount (L)'" sortable="'amount'" filter="{ 'amount': 'text' }">
+											{{addDot(s.amount)}}
+										</td>
+										<td style="text-align:right" data-title="'Truck Id'" sortable="'truckId'" filter="{ 'truckId': 'text' }">
+											{{s.truckId}}
+										</td>
+										<td style="text-align:right" data-title="'Depo'" sortable="'depo'" filter="{ 'depo': 'text' }">
+											{{s.depo}}
+										</td>
+										<td style="text-align:right" data-title="'Employee'" sortable="'employee'" filter="{ 'employee': 'text' }">
+											{{s.employee}}
+										</td>
+										<!-- <td style="text-align:right" data-title="'Dest. SPBU Id'" sortable="'destSpbuId'" filter="{ 'destSpbuId': 'text' }">
+											{{s.destSpbuId}}
+										</td> -->
+									</tr>
+								</table>
+							</div>
+							<!-- /.col-lg-12 -->
+						</div>
+						<!-- /.row -->
+						<div class="row">
+							<div class="col-lg-12">
+								<h2 class="page-header">SPP and Stock Chart</h2>
+							</div>
+							<!-- /.col-lg-12 -->
+						</div>
+						<!-- /.row -->
+						<div class="row">
+							<div class="col-lg-12">
+								<div id="chartSppStock"></div>
+							</div>
+							<!-- /.col-lg-12 -->
+						</div>
+						<!-- /.row -->
+					</div>
+					<div class="tab-content" ng-show="selectedTab == 3">
+						<div class="row">
+							<div class="col-lg-6">
+								<h2 class="page-header">List of Dispenser Output</h2>
+								<table ng-table="dispenserTableParams" show-filter="true" class="table">
+									<tr ng-repeat="d in $data">
+										<td style="text-align:right" data-title="'Date'" sortable="'dateTime'" filter="{ 'dateTime': 'text' }">
+											{{d.dateTime}}
+										</td>
+										<td style="text-align:right" data-title="'Amount (L)'" sortable="'amount'" filter="{ 'amount': 'text' }">
+											{{d.amount}}
+										</td>
+										<td style="text-align:right" data-title="'Transaction (times)'" sortable="'transaction'" filter="{ 'transaction': 'text' }">
+											{{d.transaction}}
+										</td>
+									</tr>
+								</table>
+							</div>
+							<!-- /.col-lg-6 -->
+							<div class="col-lg-6">
+								<h2 class="page-header">Dispenser Output Chart</h2>
+								<div id="chartDispenser"></div>
+							</div>
+							<!-- /.col-lg-6 -->
+						</div>
+						<!-- /.row -->
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /.row -->
+	</div>
+	<!-- /#page-wrapper -->
+
+</div>
+<!-- /#wrapper -->

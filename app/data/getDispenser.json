@@ -1,0 +1,38 @@
+[
+{
+	"dateTime": "20140601-10:00",
+	"amount": 300,
+	"transaction": 10,
+	"spbuId": "001"
+},
+{
+	"dateTime": "20140601-11:00",
+	"amount": 900,
+	"transaction": 34,
+	"spbuId": "001"
+},
+{
+	"dateTime": "20140601-12:00",
+	"amount": 150,
+	"transaction": 4,
+	"spbuId": "001"
+},
+{
+	"dateTime": "20140601-13:00",
+	"amount": 200,
+	"transaction": 5,
+	"spbuId": "001"
+},
+{
+	"dateTime": "20140601-14:00",
+	"amount": 450,
+	"transaction": 14,
+	"spbuId": "001"
+},
+{
+	"dateTime": "20140601-15:00",
+	"amount": 9,
+	"transaction": 2,
+	"spbuId": "001"
+}
+]

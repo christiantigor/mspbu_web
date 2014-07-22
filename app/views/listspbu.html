@@ -1,0 +1,121 @@
+<div id="wrapper" ng-init="initListspbu()">
+
+	<nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="index.html">BPMigas</a>
+		</div>
+		<!-- /.navbar-header -->
+
+		<ul class="nav navbar-top-links navbar-right">
+			<li class="dropdown">
+				<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+					<i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+				</a>
+				<ul class="dropdown-menu dropdown-messages">
+					<li><a href=""><i class="fa fa-user fa-fw"></i> User Profile</a>
+					</li>
+					<li><a href=""><i class="fa fa-gear fa-fw"></i> Settings</a>
+					</li>
+					<li class="divider"></li>
+					<li ng-click="go('/login')"><a href=""><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+					</li>
+				</ul>
+				<!-- /.dropdown-user -->
+			</li>
+			<!-- /.dropdown -->
+		</ul>
+		<!-- /.navbar-top-links -->
+
+		<div class="navbar-default navbar-static-side" role="navigation">
+			<div class="sidebar-collapse">
+				<ul class="nav" id="side-menu">
+					<li ng-click="go('/')">
+						<a href=""><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+					</li>
+					<li ng-click="go('/listspbu')">
+						<a href=""><i class="fa fa-users fa-fw"></i> List SPBU</a>
+					</li>
+				</ul>
+				<!-- /#side-menu -->
+			</div>
+			<!-- /.sidebar-collapse -->
+		</div>
+		<!-- /.navbar-static-side -->
+	</nav>
+
+	<div id="page-wrapper">
+		<div class="row">
+			<div class="col-lg-12">
+				<h1 class="page-header">List SPBU</h1>
+			</div>
+			<!-- /.col-lg-12 -->
+		</div>
+		<!-- /.row -->
+		<div class="row">
+            <div class="col-lg-12" style="margin-bottom:20px">
+                <h2 class="page-header">Map <small>Click on button to filter marker by status</small></h2>
+				<div class="btn-group btn-group-xs">
+					<button type="button" ng-click="toggleLayer('Normal')" class="btn btn-success">Normal</button>
+					<button type="button" ng-click="toggleLayer('Suspicious')" class="btn btn-danger">Suspicious</button>
+				</div>
+			</div>
+			<!-- /.col-lg-12 -->
+        </div>
+		<!-- /.row -->
+		<div class="row" ng-init="initMap=0">
+            <div class="col-lg-12" style="margin-bottom:20px">
+                <leaflet center="center" markers="spbus" layers="layers" defaults="defaults" height="480px"></leaflet>
+			</div>
+        </div>
+		<!-- /.row -->
+		
+		<div class="row">
+			<div class="col-lg-12">
+				<h2 class="page-header">Table <small>Click on row to see SPBU details</small></h2>
+				<!-- <button ng-click="sppTableParams.sorting({})" class="btn btn-default pull-right">Clear sorting</button>
+				<button ng-click="sppTableParams.filter({})" class="btn btn-default pull-right">Clear filter</button>
+				<p><strong>Sorting:</strong> {{sppTableParams.sorting()|json}}
+				<p><strong>Filter:</strong> {{sppTableParams.filter()|json}}
+
+				<p>sppTableParams:{{sppTableParams}}</p> -->
+
+				<table ng-table="spbuTableParams" show-filter="true" class="table table-bordered table-striped">
+					<tr ng-repeat="s in $data" ng-click="goTo(s.id)" style="cursor: pointer">
+						<td style="text-align:right" data-title="'Id'" sortable="'id'" filter="{ 'id': 'text' }">
+							{{s.id}}
+						</td>
+						<td style="text-align:right" data-title="'SPP (L)'" sortable="'totSpp'" filter="{ 'totSpp': 'text' }">
+							{{addDot(s.totSpp)}}
+						</td>
+						<td style="text-align:right" data-title="'Avg. SPP/wk. (L)'" sortable="'avgSpp'" filter="{ 'avgSpp': 'text' }">
+							{{addDot(s.avgSpp)}}
+						</td>
+						<td style="text-align:right" data-title="'Stock (L)'" sortable="'stock'" filter="{ 'stock': 'text' }">
+							{{addDot(s.stock)}}
+						</td>
+						<td style="text-align:right" data-title="'SPP - Stock (L)'" sortable="'sppMnStock'" filter="{ 'sppMnStock': 'text' }">
+							{{addDot(s.sppMnStock)}}
+						</td>
+						<td style="text-align:right" data-title="'Abnormal Output'" sortable="'abnrmlDisp'" filter="{ 'abnrmlDisp': 'text' }">
+							{{s.abnrmlDisp}} times
+						</td>
+						<td style="text-align:right" ng-class="getStatusColor(s)" data-title="'Status'" sortable="'status'" filter="{ 'status': 'text' }">
+							<strong>{{s.status}}</strong>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<!-- /.col-lg-12 -->
+		</div>
+		<!-- /.row -->
+	</div>
+	<!-- /#page-wrapper -->
+
+</div>
+<!-- /#wrapper -->

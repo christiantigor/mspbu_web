@@ -1,0 +1,32 @@
+[
+{
+	"id": "ABC123",
+	"shipmentDtTm": "20140601-10:15",
+	"ritase": 2,
+	"amount": 2500,
+	"truckId": "B1234XYZ",
+	"depo": "Plumpang",
+	"employee": "Susanto",
+	"destSpbuId": "001"
+},
+{
+	"id": "DEF456",
+	"shipmentDtTm": "20140602-12:15",
+	"ritase": 3,
+	"amount": 4500,
+	"truckId": "B1234XYZ",
+	"depo": "Plumpang",
+	"employee": "Susanto",
+	"destSpbuId": "001"
+},
+{
+	"id": "GHI789",
+	"shipmentDtTm": "20140604-15:20",
+	"ritase": 4,
+	"amount": 3200,
+	"truckId": "B1234XYZ",
+	"depo": "Plumpang",
+	"employee": "Susanto",
+	"destSpbuId": "001"
+}
+]
