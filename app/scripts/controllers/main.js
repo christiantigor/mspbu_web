@@ -40,25 +40,54 @@ angular.module('bpmigasApp')
     //init main
 	$scope.initMain = function () {
         $scope.gettingDate();
-        $scope.getspbus();
+		$scope.getspbu();
+        //$scope.getspbus();
     };
+	
+	$scope.urlspbu = 'http://118.97.213.177/Service.svc/sppGet';
+	
+	$scope.getspbu = function () {
+		var objtoparams = function (obj){
+			var p = [];
+			for(var key in obj){
+				p.push(encodeURIComponent(key) + '=' + encodeURIComponent(obj[key]));
+			}
+			return p.join('&');
+		};
+		var surat = {sppId : 1};
+		console.log(objtoparams(surat));
+		
+		$http.defaults.useXDomain = true;
+		$http({
+			method: 'POST',
+			url: $scope.urlspbu,
+			data: {sppId: 1},
+			headers: {'Content-Type': 'application/x-www-form-urlencoded'}}).
+		success(function(data){
+			console.log(data);
+			return data;
+		}).
+		error(function(data,status,headers,config){
+			return data;
+		});
+	};
 	
     //get spbu data
 	//$scope.urlspbus = 'data/getspbus.json';
-    $scope.urlspbus = 'http://180.250.242.107/Service.svc/sppGetAll';
+    $scope.urlspbus = 'http://118.97.213.177/Service.svc/sppGetAll';
 	
     $scope.getspbus = function () {
         $http({
             method: 'POST',
             url: $scope.urlspbus,
             data: '',
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'}}).
+            headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}}).
         success(function(data) {
             $scope.listspbus(data);
             return data;
         }).
         error(function(data) {
-            //$scope.getspbus();
+            $scope.getspbus();
             return data;
         });
     };
@@ -66,19 +95,22 @@ angular.module('bpmigasApp')
     $scope.spbus = [];
 	
     $scope.listspbus = function (spbuList){
-        spbuList.forEach(function (s) {
+        //console.log(spbuList.sppGetAllResult);
+		spbuList.sppGetAllResult.forEach(function (s) {
             try{
                 $scope.spbus.push({
-                    id: s.id,
-                    owner: s.owner,
-                    addr: s.addr,
-                    phone: s.phone,
-                    totSpp: s.totSpp,
-                    stock: s.stock,
-                    abnrmlDisp: s.abnrmlDisp,
+                    Id: s.Id,
+                    address: s.address,
+                    buyer: s.buyer,
+                    dens_temp: s.dens_temp,
+                    name: s.name,
+                    police_no: s.police_no,
+                    print_date: s.print_date,
+                    product: s.product,
+                    shipment_no: s.shipment_no,
                     status: s.status,
-                    lat: s.lat,
-                    lng: s.lng
+					username: s.username,
+					verification_date: s.verification_date
                 });
             }
 		    catch(err){
@@ -87,10 +119,11 @@ angular.module('bpmigasApp')
 		});
 		
 		//after spbu data loaded
-		$scope.getspbusStatus();
-        $scope.chartspbusStatus();
-		$scope.getbbmDistribution();
-		$scope.chartbbmDistribution();
+		//console.log($scope.spbus);
+		//$scope.getspbusStatus();
+        //$scope.chartspbusStatus();
+		//$scope.getbbmDistribution();
+		//$scope.chartbbmDistribution();
     };
 	
     $scope.spbusStatus = [];
