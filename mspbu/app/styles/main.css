@@ -1,15 +1,78 @@
+@import url(http://fonts.googleapis.com/css?family=Bevan|Open+Sans);
+
+h2, h3 {
+  font-family: 'Bevan', cursive;
+}
+
+h4 {
+  font-family: 'Open Sans', sans-serif;
+  text-transform:uppercase;
+  font-weight:bold;
+}
+
+p {
+  font-family: 'Open Sans', sans-serif;
+}
+
 /* Space out content a bit */
 body {
   padding-top: 20px;
   padding-bottom: 20px;
+  background: url("../images/noisy.png") repeat scroll left top transparent;
+}
+
+#overview, #location, #list {
+  background-color: white;
+  padding: 0px 15px 15px 15px;
+  -webkit-border-radius: 0px 0px 15px 15px;
+  border-radius: 0px 0px 15px 15px;
+}
+
+.custom ul {
+  list-style:none;
+  width:100%;
+  font-size:0;
+  margin: -10px;
+  padding: 0px;
+  -webkit-margin-before: 0em;
+  -webkit-margin-after: 0em;
+  -webkit-margin-start: 0px;
+  -webkit-margin-end: 0px;
+  -webkit-padding-start: 0px;
+}
+
+.custom li {
+  display:inline-block;
+  width:33%;
+  height:7px;
+  margin: 0px;
+}
+
+.custom li:nth-child(1) {
+  width:33%;
+  background:rgb(108, 126, 255);
+}
+
+.custom li:nth-child(2) {
+  width:34%;
+  background:rgb(228, 84, 84)
+}
+
+.custom li:nth-child(3) {
+  width:33%;
+  background:rgb(173, 236, 78);
 }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
 .header,
-.marketing,
 .footer {
   padding-left: 15px;
   padding-right: 15px;
+}
+
+.cluster {
+  font-size: 30px;
+  color: white;
 }
 
 /* Custom page header */
@@ -32,38 +95,108 @@ body {
 }
 
 /* Customize container */
-@media (min-width: 768px) {
-  .container {
-    max-width: 730px;
-  }
+.container {
+  max-width: 95%;
 }
+
 .container-narrow > hr {
   margin: 30px 0;
 }
 
-/* Main marketing message and sign up button */
-.jumbotron {
-  text-align: center;
-  border-bottom: 1px solid #e5e5e5;
-}
-.jumbotron .btn {
-  font-size: 21px;
-  padding: 14px 24px;
+/** style for the map on the main page */
+.main .angular-google-map-container {
+  height: 450px;
+  width: 100%;
 }
 
-/* Supporting marketing content */
-.marketing {
-  margin: 40px 0;
+/** style for the map on the main page */
+.track .angular-google-map-container {
+  height: 450px;
+  width: 100%;
 }
-.marketing p + h4 {
-  margin-top: 28px;
+
+.masonry-brick {
+  width:300px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  -webkit-box-shadow: #B3B3B3 4px 4px 4px;
+  -moz-box-shadow: #B3B3B3 4px 4px 4px;
+  box-shadow: #B3B3B3 4px 4px 4px;
+  margin: 0.5em;
+  text-align:center;
+  display: none;
+  color: rgba(85, 85, 85, 0.7);
+  background-color:white;
+  /* text-shadow: 0px -1px 0px rgb(170, 170, 170); */
+}
+
+.masonry-container {
+    padding-bottom: 3%;
+    background: url("../images/diamond_upholstery.png") repeat scroll left top transparent;
+    margin-bottom:0%;
+}
+
+.masonry-img {
+    max-width: 100%;
+    -webkit-border-radius: 10px 10px 0px 0px;
+    -moz-border-radius: 10px 10px 0px 0px;
+    border-radius: 10px 10px 0px 0px;
+}
+ 
+.masonry-text {
+    padding: 20px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.masonry-text h4 {
+    color:maroon;
+    font-style:bold;
+    text-align: center;
+}
+
+.masonry-text p {
+    color:midnightblue;
+}
+
+#stitch-container {
+    /*stitching*/
+    outline: 1px dashed #98abb9;
+    outline-offset: -5px;
+    margin-bottom: 15px;
+    background-color: #556068;
+    height: 20%;
+    width: 100%;
+    padding: 10px;
+    color: white;    
+}
+
+.site-data {
+   text-align:left;
+}
+
+.brick-line {
+   border-color: white;
+   background-color: white;
+}
+ 
+.card-line {
+   border-color: black;
+   background-color: black;
+}
+ 
+.masonry-brick.loaded {
+    display: block;
+}
+ 
+#fit-width .masonry {
+    margin-top: 100px;
 }
 
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
   /* Remove the padding we set earlier */
   .header,
-  .marketing,
   .footer {
     padding-left: 0;
     padding-right: 0;
@@ -71,9 +204,5 @@ body {
   /* Space out the masthead */
   .header {
     margin-bottom: 30px;
-  }
-  /* Remove the bottom border on the jumbotron for visual effect */
-  .jumbotron {
-    border-bottom: 0;
   }
 }

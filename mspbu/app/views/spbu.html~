@@ -1,0 +1,119 @@
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+        <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+      </button>
+      <!-- You'll want to use a responsive image option so this logo looks good on devices - I recommend using something like retina.js -->
+      <a class="navbar-brand logo-nav" href="#">
+        Online SPBU Portal
+      </a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a ui-sref="spbu">Overview</a></li>
+        <li><a ui-sref="transaction">Transaksi</a></li>
+        <li><a ui-sref="tracking">Pelacakan</a></li>
+        <li><a ui-sref="dispencer">Dispencer</a></li>
+        <li><a ui-sref="lo">Loading Order</a></li>
+        <li><a ui-sref="stock">Stok</a></li>
+        <li><a ui-sref="spp">Rekam SPP</a></li>
+      </ul>
+    </div>
+    <!-- /.navbar-collapse -->
+  </div>
+  <!-- /.container -->
+</nav>
+
+<!-- SPBU OVERVIEW CONTAINER -->
+<div class="information-container" id="overview">
+  <div class="custom"><ul class="custom">
+    <li class="custom"></li>
+    <li class="custom"></li>
+    <li class="custom"></li>
+  </ul></div>
+  <h2>SPBU {{spbu[0].name}}</h2>
+  <div class="row clearfix">
+    <div class="col-md-4 column">
+      <h3>Informasi SPBU</h3>
+      <p>
+      Total supply BBM hari ini: {{overview.totalsupply}} ltr<br>
+      Rata-rata supply perhari: {{overview.avgsupply}} ltr<br>
+      Total demand BBM hari ini: {{overview.totaldemand}} ltr<br>
+      Rata-rata demand perhari: {{overview.avgdemand}} ltr<hr>
+      Jumlah SPP yang <b>sudah diproses</b> hari ini: {{overview.processed}} SPP<br>
+      Jumlah SPP yang <b>sedang diproses</b> hari ini: {{overview.inprocess}} SPP<br>
+      Rata-rata SPP yang <b>diproses</b> perhari: {{overview.avgprocessed}} SPP<br>
+      </p>
+    </div>
+    <div class="col-md-4 column">
+      <h3>Rasio Demand vs Supply</h3>
+      <div id="ratio-chart"></div>
+    </div>
+    <div class="col-md-4 column">
+      <h3>Rasio BBM</h3>
+      <div id="bbm-chart"></div>
+    </div>
+  </div>
+</div><hr>
+<!-- END OF SPBU OVERVIEW CONTAINER -->
+
+<!-- SPBU GRAPH CONTAINER -->
+<div class="information-container" id="graph">
+  <div class="custom"><ul class="custom">
+    <li class="custom"></li>
+    <li class="custom"></li>
+    <li class="custom"></li>
+  </ul></div>
+  <div class="row clearfix">
+    <div class="col-md-12 column">
+      <h3>Histori Operasi</h3>
+    </div>
+  </div>
+  <div class="row clearfix">
+    <div class="col-md-12 column">
+      <div class="tabbable tabs-below">
+        <ul class="nav nav-pills" ng-init="selectedTab = 1">
+          <li ng-class="{active: selectedTab == 1}">
+            <a ng-click="selectedTab = 1;">Demand-Supply</a>
+          </li>
+          <li ng-class="{active: selectedTab == 2}">
+            <a ng-click="selectedTab = 2;">Stok BBM</a>
+          </li>
+        </ul><br>
+        <div class="tab-content" ng-show="selectedTab == 1">          
+          <span>Demand-supply untuk </span>
+          <span class="dropdown">
+            <a ng-click="selectedTab = 1;" class="dropdown-toggle">{{fChoice}}</a>
+            <ul class="dropdown-menu">
+              <li ng-repeat="choice in items">
+                <a ng-click="filterGraph($index)">{{choice}}</a>
+              </li>
+            </ul>
+          </span>
+          <div id="record-chart" style="margin-top: 15px"></div>
+        </div>
+        <div class="tab-content" ng-show="selectedTab == 2">
+          <div id="shipment-chart"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END OF SPBU GRAPH CONTAINER -->
+
+<br>
+<div class="footer">
+  <p>Copyright 2013-2014</p>
+  <p>by PT Sapi Terbang</p>
+  <hr>
+</div>
+
+<!-- END OF FILE -->

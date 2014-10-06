@@ -1,0 +1,102 @@
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+        <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+      </button>
+      <!-- You'll want to use a responsive image option so this logo looks good on devices - I recommend using something like retina.js -->
+      <img class="pull-left" style="margin-top:10px" src="../images/logo-small.png"/>
+      <a class="navbar-brand logo-nav" href="/dashboard">
+        Online SPBU Portal
+      </a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a ui-sref="dashboard">Dashboard</a></li>
+        <li><a ui-sref="location">Lokasi SPBU</a></li>
+        <li><a ui-sref="list">Pencarian</a></li>
+      </ul>
+    </div>
+    <!-- /.navbar-collapse -->
+  </div>
+  <!-- /.container -->
+</nav>
+
+<!-- OVERVIEW CONTAINER -->
+<div class="information-container" id="overview">
+  <div class="custom"><ul class="custom">
+    <li class="custom"></li>
+    <li class="custom"></li>
+    <li class="custom"></li>
+  </ul></div>
+  <div class="row clearfix">
+    <div class="col-md-4 column">
+      <h3>Gambaran Singkat</h3>
+      <p>Total SPBU terdaftar: {{spbu.length}}<br>
+      Total supply BBM hari ini: {{overview.totalsupply}} ltr<br>
+      Rata-rata supply BBM per SPBU: {{overview.avgsupply}} ltr<br>
+      Total demand BBM hari ini: {{overview.totaldemand}} ltr<br>
+      Rata-rata demand per SPBU: {{overview.avgdemand}} ltr<hr>
+      Jumlah SPP yang <b>sudah diproses</b> hari ini: {{overview.processed}}<br>
+      Jumlah SPP yang <b>sedang diproses</b> hari ini: {{overview.inprocess}}<br>
+      Rata-rata SPP yang <b>sudah diproses</b> hari ini: {{overview.avgprocessed}}<br>
+      Rata-rata SPP yang <b>sedang diproses</b> hari ini: {{overview.avginprocess}}<hr></p>
+    </div>
+    <div class="col-md-4 column" style="padding-top: 15px">
+      <h4>Rasio Demand vs Supply</h4>
+      <div id="demandsupply-chart"></div>
+    </div>
+    <div class="col-md-4 column" style="padding-top: 15px">
+      <h4>Rasio Demand BBM</h4>
+      <div id="bbm-chart"></div>
+    </div>    
+  </div>
+  <div class="row clearfix">
+    <div class="col-md-6 column">
+      <!-- Status SPBU-->
+      <h4>Status Pesanan</h4>
+      <table class="table table-hover">
+        <thead>
+          <tr class="warning">
+            <th>Waktu Pesan</th>
+            <th>Nomor</th>
+            <th>Tujuan</th>
+            <th>Pesanan</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="order in orders">
+            <td>{{order.date}}</td>
+            <td>{{order.no}}</td>
+            <td>{{order.destination}}</td>
+            <td>{{order.detail}}</td>
+            <td>{{order.status}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-md-6 column">
+      <!-- Rekam Demand Supply-->
+      <h4>Rekaman Demand-Supply</h4>
+      <span>Demand-supply untuk </span>
+      <span class="dropdown">
+        <a ng-click="selectedTab = 1;" class="dropdown-toggle">{{fChoice}}</a>
+        <ul class="dropdown-menu">
+          <li ng-repeat="choice in items">
+            <a ng-click="filterGraph($index)">{{choice}}</a>
+          </li>
+        </ul>
+      </span>
+      <div id="demandsupply-graph" style="margin-top:15px"></div>
+    </div>      
+  </div>
+</div><br>
+<!-- END OF OVERVIEW CONTAINER -->
+
+<!-- END OF FILE -->

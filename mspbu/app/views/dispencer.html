@@ -1,0 +1,119 @@
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+        <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+      </button>
+      <!-- You'll want to use a responsive image option so this logo looks good on devices - I recommend using something like retina.js -->
+      <img class="pull-left" style="margin-top:10px" src="../images/logo-small.png"/>
+      <a class="navbar-brand logo-nav" href="#">
+        Online SPBU Portal
+      </a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a ui-sref="spbu">Overview</a></li>
+        <li><a ui-sref="transaction">Transaksi</a></li>
+        <li><a ui-sref="tracking">Pelacakan</a></li>
+        <li><a ui-sref="dispencer">Dispencer</a></li>
+        <li><a ui-sref="lo">Loading Order</a></li>
+        <li><a ui-sref="stock">Stok</a></li>
+        <li><a ui-sref="spp">Rekam SPP</a></li>
+      </ul>
+    </div>
+    <!-- /.navbar-collapse -->
+  </div>
+  <!-- /.container -->
+</nav>
+
+<!-- Transaction Table -->
+<div class="information-container" id="transaction">
+  <div class="custom"><ul class="custom">
+    <li class="custom"></li>
+    <li class="custom"></li>
+    <li class="custom"></li>
+  </ul></div>
+  <div class="row clearfix">
+    <div class="col-md-12 column">
+      <h3>Dispencer</h3>
+    </div>
+  </div>
+  <div class="row clearfix">
+    <div class="col-md-4 column">
+      <h4>Overview</h4>
+      <table class="table table-hover table-justified table-responsive">
+        <tbody>
+          <thead>
+            <td><b>Tipe</b></td>
+            <td><b>Jumlah Hari Ini</b></td>
+            <td><b>Rata-rata per Hari</b></td>
+          </thead>
+          <tr>
+            <td>Semua</td>
+            <td>{{overview.totalbbm}}</td>
+            <td>{{overview.avgbbm}}</td>
+          </tr>
+          <tr>
+            <td>Premium</td>
+            <td>{{overview.totalpremium}}</td>
+            <td>{{overview.avgpremium}}</td>
+          </tr>
+          <tr>
+            <td>Pertamax</td>
+            <td>{{overview.totalpertamax}}</td>
+            <td>{{overview.avgpertamax}}</td>
+          </tr>
+          <tr>
+            <td>Solar</td>
+            <td>{{overview.totalsolar}}</td>
+            <td>{{overview.avgsolar}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <div>
+        <h4>Rasio Penjualan</h3>
+        <div id="dispencer-chart"></div>
+      </div>
+    </div>
+    <div class="col-md-8 column">
+      <h4>Rekaman</h4>
+      <table ng-table="transactionTable" show-filter="true" class="table table-hover table-justified table-responsive">
+        <tbody ng-repeat="dispencer in $data">
+          <tr>
+            <td data-title="'No'" sortable="'id'">{{dispencer.id + 1}}</td>
+            <td data-title="'Nomor Polisi'" filter="{ 'nopol': 'text' }">{{dispencer.nopol}}</td>
+            <td data-title="'Waktu'" sortable="'time'" filter="{ 'time': 'text' }">{{dispencer.time}}</td>
+            <td data-title="'Produk'" sortable="'product'" filter="{ 'product': 'text' }">{{dispencer.product}}</td>
+            <td data-title="'Jumlah'" sortable="'orderamount'" filter="{ 'orderamount': 'text' }">{{dispencer.orderamount}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="information-container" id="graph">
+  <div class="custom"><ul class="custom">
+    <li class="custom"></li>
+    <li class="custom"></li>
+    <li class="custom"></li>
+  </ul></div>
+  <div class="row clearfix">
+    <div class="col-md-12 column">
+      <h3>Histori Dispencer</h3>
+    </div>
+  </div>
+  <div class="row clearfix">
+    <div class="col-md-12 column">      
+      <div id="record-chart" style="margin-top: 15px"></div>
+    </div>
+  </div>
+</div>
+<!-- END OF Transaction Table -->

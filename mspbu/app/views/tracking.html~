@@ -1,0 +1,68 @@
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+        <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+      </button>
+      <!-- You'll want to use a responsive image option so this logo looks good on devices - I recommend using something like retina.js -->
+      <a class="navbar-brand logo-nav" href="#">
+        Online SPBU Portal
+      </a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a ui-sref="spbu">Overview</a></li>
+        <li><a ui-sref="transaction">Transaksi</a></li>
+        <li><a ui-sref="tracking">Pelacakan</a></li>
+        <li><a ui-sref="dispencer">Dispencer</a></li>
+        <li><a ui-sref="lo">Loading Order</a></li>
+        <li><a ui-sref="stock">Stok</a></li>
+        <li><a ui-sref="spp">Rekam SPP</a></li>
+      </ul>
+    </div>
+    <!-- /.navbar-collapse -->
+  </div>
+  <!-- /.container -->
+</nav>
+
+<div class="information-container" id="tracking">
+  <div class="custom"><ul class="custom">
+    <li class="custom"></li>
+    <li class="custom"></li>
+    <li class="custom"></li>
+  </ul></div>
+  <div class="row clearfix">
+    <div class="col-md-12 column">
+      <h3>Pelacakan Pesanan</h3>
+    </div>
+  </div>
+  <div class="row clearfix">
+    <div class="col-md-4 column">
+      <table ng-table="trackTable" show-filter="true" class="table table-hover table-justified table-responsive">
+        <tbody ng-repeat="track in $data">
+          <tr> <!-- show data of truck and driver when marker is clicked -->
+            <td data-title="'No'" sortable="'id'">{{track.id}}</td>
+            <td data-title="'Nomor SPP'" filter="{ 'spp': 'text' }">{{track.spp}}</td>
+            <td data-title="'Produk'" sortable="'product'" filter="{ 'product': 'text' }">{{track.product}}</td>
+            <td data-title="'Status'" sortable="'status'" filter="{ 'status': 'text' }">{{track.status}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-md-8 column" style="padding-left: 40px">
+      <google-map class="main" center="map.center" zoom="map.zoom" draggable="true" refresh="isRefresh">
+        <markers models="tracks" coords="'self'" icon="'icon'" labelContent="'title'" labelClass="marker-labels" fit="true" doCluster="map.doCluster" clusterOptions="map.clusterOptions">
+        </markers>
+        <polyline ng-repeat="track in tracks" path="track.path" stroke="polyline.stroke" clickable="polyline.clickable" draggable="polyline.draggable" editable="polyline.editable" geodesic="polyline.geodesic" visible="polyline.visible"></polyline>
+      </google-map>
+    </div>
+  </div>
+</div>
+

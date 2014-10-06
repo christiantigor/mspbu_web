@@ -1,0 +1,243 @@
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+        <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+      </button>
+      <!-- You'll want to use a responsive image option so this logo looks good on devices - I recommend using something like retina.js -->
+      <img class="pull-left" style="margin-top:10px" src="../images/logo-small.png"/>
+      <a class="navbar-brand logo-nav" href="#">
+        Online SPBU Portal
+      </a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a ui-sref="spbu">Overview</a></li>
+        <li><a ui-sref="transaction">Transaksi</a></li>
+        <li><a ui-sref="tracking">Pelacakan</a></li>
+        <li><a ui-sref="dispencer">Dispencer</a></li>
+        <li><a ui-sref="lo">Loading Order</a></li>
+        <li><a ui-sref="stock">Stok</a></li>
+        <li><a ui-sref="spp">Rekam SPP</a></li>
+      </ul>
+    </div>
+    <!-- /.navbar-collapse -->
+  </div>
+  <!-- /.container -->
+</nav>
+
+<div class="information-container" id="stock">
+  <div class="custom"><ul class="custom">
+    <li class="custom"></li>
+    <li class="custom"></li>
+    <li class="custom"></li>
+  </ul></div>
+  <div class="row clearfix">
+    <div class="col-md-12 column">
+      <h3>Pengukuran Stok</h3>
+    </div>
+  </div>
+  <div class="row clearfix">
+    <div class="col-md-4 column">
+      <div style="text-align:center"><div id="chart-premium" class="gauge"></div>
+      <h4>Premium</h4><hr></div>
+      <p>Sisa stok: <b>{{premium.remain}}</b> ltr<br>
+                 Ketahanan stok: <b>{{premium.perseverance}}</b> hari<br>
+                 Pengisian terakhir: <b>{{premium.lastvolume}}</b> ltr pada <b>{{premium.lastfill}}</b><br>
+                 Pengisian berikut: <b>{{premium.nextvolume}}</b> ltr pada <b>{{premium.nextfill}}</b><br>
+                 Rata-rata pengisian: <b>{{premium.refill}}</b> ltr/pesanan<br>
+                 Rata-rata konsumsi: <b>{{premium.consumption}}</b> ltr/hari<br>
+      </p><hr>
+      <div style="text-align:center">
+        <button class="btn btn-default btn-primary btn-lg btn-block" ng-click="update(1)">Update Stok Premium</button>
+      </div><br>
+      <div style="text-align:center">
+        <button class="btn btn-default btn-primary btn-lg btn-block" ng-click="open(1)">Pesan Premium</button>
+      </div><br>
+    </div>
+    <div class="col-md-4 column">
+      <div style="text-align:center"><div id="chart-pertamax" class="gauge"></div>
+      <h4>Pertamax</h4><hr></div>
+      <p>Sisa stok: <b>{{pertamax.remain}}</b> ltr<br>
+                 Ketahanan stok: <b>{{pertamax.perseverance}}</b> hari<br>
+                 Pengisian terakhir: <b>{{pertamax.lastvolume}}</b> ltr pada <b>{{pertamax.lastfill}}</b><br>
+                 Pengisian berikut: <b>{{pertamax.nextvolume}}</b> ltr pada <b>{{pertamax.nextfill}}</b><br>
+                 Rata-rata pengisian: <b>{{pertamax.refill}}</b> ltr/pesanan<br>
+                 Rata-rata konsumsi: <b>{{pertamax.consumption}}</b> ltr/hari<br>
+      </p><hr>
+      <div style="text-align:center">
+        <button class="btn btn-default btn-primary btn-lg btn-block" ng-click="update(2)">Update Stok Pertamax</button>
+      </div><br>
+      <div style="text-align:center">
+        <button class="btn btn-default btn-primary btn-lg btn-block" ng-click="open(2)">Pesan Pertamax</button>
+      </div><br>
+    </div>
+    <div class="col-md-4 column">
+      <div style="text-align:center"><div id="chart-solar" class="gauge"></div><br>
+      <h4>Solar</h4><hr></div>
+      <p>Sisa stok: <b>{{solar.remain}}</b> ltr<br>
+                 Ketahanan stok: <b>{{solar.perseverance}}</b> hari<br>
+                 Pengisian terakhir: <b>{{solar.lastvolume}}</b> ltr pada <b>{{solar.lastfill}}</b><br>
+                 Pengisian berikut: <b>{{solar.nextvolume}}</b> ltr pada <b>{{solar.nextfill}}</b><br>
+                 Rata-rata pengisian: <b>{{solar.refill}}</b> ltr/pesanan<br>
+                 Rata-rata konsumsi: <b>{{solar.consumption}}</b> ltr/hari<br>
+      </p><hr>
+      <div style="text-align:center">
+        <button class="btn btn-default btn-primary btn-lg btn-block" ng-click="update(3)">Update Stok Solar</button>
+      </div><br>
+      <div style="text-align:center">
+        <button class="btn btn-default btn-primary btn-lg btn-block" ng-click="open(3)">Pesan Solar</button>
+      </div><br>
+    </div>
+  </div>
+</div>
+
+<script type="text/ng-template" id="orderForm.html">
+  <div class="modal-header">
+    <h3>Formulir Pemesanan BBM</h3>
+  </div>
+  <div class="modal-body">
+    Isi formulir pesanan sesuai kebutuhan Anda:<br><br>
+
+    <form class="form-horizontal">
+    <fieldset>
+
+    <!-- Select Basic -->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="orderType">Jenis BBM</label>
+      <div class="col-md-6">
+        <select id="orderType" name="orderType" class="form-control">
+          <option value="1">Premium</option>
+          <option value="2">Pertamax</option>
+          <option value="3">Solar</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Appended Input-->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="orderAmount">Jumlah</label>
+      <div class="col-md-6">
+        <div class="input-group">
+          <select id="orderAmount" name="orderAmount" class="form-control">
+            <option value="1">16000</option>
+            <option value="2">24000</option>
+            <option value="3">32000</option>
+            <option value="4">40000</option>
+          </select>
+          <span class="input-group-addon">liter</span>
+        </div><br>
+        <p>Sisa <i>Loading Order</i>: 51000 liter<p>    
+      </div>
+    </div>
+
+    <!-- Appended Input-->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="orderDepo">Depo Asal</label>
+      <div class="col-md-6">
+        <div class="input-group">
+          <select id="orderAmount" name="orderDepo" class="form-control">
+            <option value="1">Plumpang</option>
+            <option value="2">Cikampek</option>
+            <option value="3">Ujung Berung</option>
+            <option value="4">Padalarang</option>
+            <option value="5">Tanjung Gerem</option>
+          </select>
+        </div>    
+      </div>
+    </div>
+
+    <!-- Select Basic -->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="orderDestination">Tujuan</label>
+      <div class="col-md-6">
+        <select id="orderDestination" name="orderDestination" class="form-control">
+          <option value="1">SPBU 2312</option>
+          <option value="2">SPBU 3526</option>
+          <option value="3">SPBU 2324</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Select Basic -->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="ritase">Ritase</label>
+      <div class="col-md-6">
+        <select id="ritase" name="ritase" class="form-control">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="orderDestination">Tanggal Pengiriman</label>
+      <div class="row">
+        <div class="col-md-6">
+          <p class="input-group">
+            <input type="text" class="form-control" datepicker-popup="yyyy/MM/dd" ng-model="dt" is-open="opened" min="minDate" max="'2015/01/01'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+            <span class="input-group-btn">
+              <button class="btn btn-default disabled" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+            </span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    </fieldset>
+    </form>
+  
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-primary" ng-click="ok()">OK</button>
+    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+  </div>
+</script>
+
+<script type="text/ng-template" id="updateForm.html">
+  <div class="modal-header">
+    <h3>Formulir Update Manual Stok BBM</h3>
+  </div>
+  <div class="modal-body">
+    Masukkan stok BBM hasil pengukuran manual:<br><br>
+
+    <form class="form-horizontal">
+    <fieldset>
+
+    <!-- Select Basic -->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="orderType">Pengukuran Stok BBM</label>
+      <div class="col-md-6">
+        <div class="input-group">
+          <input id="stockInput" name="stockInput" class="form-control"></input>
+          <span class="input-group-addon">liter</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="orderType">Catatan</label>
+      <div class="col-md-6">
+        <input id="noteText" name="noteText" class="form-control"></input>
+      </div>
+    </div>
+
+    </fieldset>
+    </form>
+  
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-primary" ng-click="ok()">OK</button>
+    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+  </div>
+</script>

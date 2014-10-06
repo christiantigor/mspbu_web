@@ -1,0 +1,93 @@
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+        <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+      </button>
+      <!-- You'll want to use a responsive image option so this logo looks good on devices - I recommend using something like retina.js -->
+      <img class="pull-left" style="margin-top:10px" src="../images/logo-small.png"/>
+      <a class="navbar-brand logo-nav" href="#">
+        Online SPBU Portal
+      </a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a ui-sref="spbu">Overview</a></li>
+        <li><a ui-sref="transaction">Transaksi</a></li>
+        <li><a ui-sref="tracking">Pelacakan</a></li>
+        <li><a ui-sref="dispencer">Dispencer</a></li>
+        <li><a ui-sref="lo">Loading Order</a></li>
+        <li><a ui-sref="stock">Stok</a></li>
+        <li><a ui-sref="spp">Rekam SPP</a></li>
+      </ul>
+    </div>
+    <!-- /.navbar-collapse -->
+  </div>
+  <!-- /.container -->
+</nav>
+
+<div class="information-container" id="spp" ng-init="initSpps()">
+  <div class="custom"><ul class="custom">
+    <li class="custom"></li>
+    <li class="custom"></li>
+    <li class="custom"></li>
+  </ul></div>
+  <div class="row clearfix">
+    <div class="col-md-12 column">
+      <h3>Rekaman SPP</h3>
+    </div>
+  </div>
+  <!-- SPP Table -->
+  <table ng-table="sppsTableParams" show-filter="true" class="table table-hover table-justified table-responsive">
+    <tr ng-repeat="s in $data">
+	  <td data-title="'ID'" sortable="'id'" filter="{'id': 'text'}">
+	    <small>{{s.id}}</small>
+	  </td>
+	  <td data-title="'Address'" sortable="'address'" filter="{'address': 'text'}">
+	    <small>{{s.address}}</small>
+	  </td>
+	  <td data-title="'Buyer'" sortable="'buyer'" filter="{'buyer': 'text'}">
+	    <small>{{s.buyer}}</small>
+	  </td>
+	  <td data-title="'Dens/Temp'" sortable="'densTemp'" filter="{'densTemp': 'text'}">
+	    <small>{{s.densTemp}}</small>
+	  </td>
+	  <td data-title="'Name'" sortable="'name'" filter="{'name': 'text'}">
+	    <small>{{s.name}}</small>
+	  </td>
+	  <td data-title="'Police No'" sortable="'policeNo'" filter="{'policeNo': 'text'}">
+	    <small>{{s.policeNo}}</small>
+	  </td>
+	  <td data-title="'Print Date'" sortable="'printDate'" filter="{'printDate': 'text'}">
+	    <small>{{s.printDate}}</small>
+	  </td>
+	  <td data-title="'Product'" sortable="'product'" filter="{'product': 'text'}">
+	    <small>{{s.product}}</small>
+	  </td>
+	  <td data-title="'Shipment No'" sortable="'shipmentNo'" filter="{'shipmentNo': 'text'}">
+	    <small>{{s.shipmentNo}}</small>
+	  </td>
+	  <td data-title="'Status'" sortable="'status'" filter="{'status': 'text'}">
+	    <small>{{s.status}}</small>
+	  </td>
+	  <td data-title="'Username'" sortable="'username'" filter="{'username': 'text'}">
+	    <small>{{s.username}}</small>
+	  </td>
+	  <!-- <td data-title="'Verification Date'" sortable="'verificationDate'" filter="{'verificationDate': 'text'}">
+	    <small>{{s.verificationDate}}</small>
+	  </td> -->
+	  <td data-title="'Volume'" sortable="'volume'" filter="{'volume': 'text'}">
+	    <small>{{s.volume}}</small>
+	  </td>
+	</tr>
+  </table>
+  <!-- END OF SPP Table -->
+  </div>
+</div>

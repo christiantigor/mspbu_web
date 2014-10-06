@@ -1,0 +1,72 @@
+/* Space out content a bit */
+body {
+  padding-top: 70px;
+  padding-bottom: 20px;
+  background: url("../images/noisy.png") repeat scroll left top transparent;
+}
+
+.information-container {
+  background-color: white;
+  margin: 10px 40px auto 40px;
+  padding: 0px 15px 15px 15px;
+  -webkit-border-radius: 0px 0px 15px 15px;
+  border-radius: 0px 0px 15px 15px;
+}
+
+/* Everything but the jumbotron gets side spacing for mobile first views */
+.header,
+.footer {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+/* Custom page header */
+.header {
+  border-bottom: 1px solid #e5e5e5;
+}
+/* Make the masthead heading the same height as the navigation */
+.header h3 {
+  margin-top: 0;
+  margin-bottom: 0;
+  line-height: 40px;
+  padding-bottom: 19px;
+}
+
+/* Custom page footer */
+.footer {
+  padding-top: 19px;
+  color: #777;
+  border-top: 1px solid #e5e5e5;
+}
+
+/* Customize container */
+.container {
+  max-width: 95%;
+}
+
+.container-narrow > hr {
+  margin: 30px 0;
+}
+
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 768px) {
+  /* Remove the padding we set earlier */
+  .header,
+  .footer {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  /* Space out the masthead */
+  .header {
+    margin-bottom: 30px;
+  }
+}
+
+.inside-table {
+  margin: auto;
+  width: 85%;
+}
+
+.gauge {
+  display:inline-block;
+}

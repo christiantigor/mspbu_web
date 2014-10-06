@@ -1,0 +1,131 @@
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+        <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+      </button>
+      <!-- You'll want to use a responsive image option so this logo looks good on devices - I recommend using something like retina.js -->
+      <img class="pull-left" style="margin-top:10px" src="../images/logo-small.png"/>
+      <a class="navbar-brand logo-nav" href="#">
+        Online SPBU Portal
+      </a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a ui-sref="spbu">Overview</a></li>
+        <li><a ui-sref="transaction">Transaksi</a></li>
+        <li><a ui-sref="tracking">Pelacakan</a></li>
+        <li><a ui-sref="dispencer">Dispencer</a></li>
+        <li><a ui-sref="lo">Loading Order</a></li>
+        <li><a ui-sref="stock">Stok</a></li>
+        <li><a ui-sref="spp">Rekam SPP</a></li>
+      </ul>
+    </div>
+    <!-- /.navbar-collapse -->
+  </div>
+  <!-- /.container -->
+</nav>
+
+<div class="information-container" id="spp">
+  <div class="custom"><ul class="custom">
+    <li class="custom"></li>
+    <li class="custom"></li>
+    <li class="custom"></li>
+  </ul></div>
+  <div class="row clearfix">
+    <div class="col-md-12 column">
+      <h3>Rekaman SPP</h3>
+    </div>
+  </div>
+  <!-- SPP Table -->
+  <table ng-table="sppTable" show-filter="true" class="table table-hover table-justified table-responsive">
+    <tbody ng-repeat="spp in $data">
+      <tr ng-click="showComparison(spp.id, spp.status)" ng-class="{danger: spp.color}">
+        <td data-title="'No'" sortable="'id'">{{spp.id + 1}}</td>
+        <td data-title="'Waktu Cetak'" sortable="'time'" filter="{ 'time': 'text' }">{{spp.time}}</td>
+        <td data-title="'Waktu Verifikasi'" sortable="'vtime'" filter="{ 'vtime': 'text' }">{{spp.vtime}}</td>
+        <td data-title="'Status'" sortable="'status'" filter="{ 'status': 'text' }">{{spp.status}}</td>
+        <td data-title="'Produk'" sortable="'product'" filter="{ 'product': 'text' }">{{spp.product}}</td>
+        <td data-title="'Penerima'">{{spp.name}}</td>
+        <td data-title="'Nomor Polisi'" filter="{ 'nopolice': 'text' }">{{spp.nopolice}}</td>
+        <td data-title="'Nomor Shipment'" filter="{ 'noshipment': 'text' }">{{spp.noshipment}}</td>
+        <td data-title="'Jumlah'">{{spp.orderamount}}</td>
+        <td data-title="'Dens/Temp'">{{spp.denstemp}}</td>
+        <td data-title="'Produk'" sortable="'product'" filter="{ 'product': 'text' }">{{spp.product}}</td>
+        <!-- td data-title="'Status'" sortable="'status'">{{spp.status}}</td-->
+      </tr>
+
+      <tr class="warning" ng-show="spp.isCompared">
+        <td colspan="6" style="padding-bottom: 15px">
+          <h4 style="text-align:center">SPP dari SPBU</h4>
+          <table class="table table-bordered table-hover table-condensed table-responsive inside-table">
+            <tr>
+              <td>Nama</td> <td>{{spps[0].name}}</td>
+            </tr>
+            <tr>
+              <td>Alamat</td> <td>{{spps[0].address}}</td>
+            </tr>
+            <tr>
+              <td>Nomor Polisi</td> <td>{{spps[0].nopolice}}</td>
+            </tr>
+            <tr>
+              <td>Nomor Shipment</td> <td>{{spps[0].noshipment}}</td>
+            </tr>
+            <tr>
+              <td>Tujuan</td> <td>{{spps[0].destination}}</td>
+            </tr>
+            <tr>
+              <td>Jumlah</td> <td>{{spps[0].orderamount}}</td>
+            </tr>
+            <tr>
+              <td>Dens/Temp</td> <td>{{spps[0].denstemp}}</td>
+            </tr>
+            <tr>
+              <td>Pembeli</td> <td>{{spps[0].buyer}}</td>
+            </tr>
+            <tr>
+              <td>Produk</td> <td>{{spps[0].product}}</td>
+            </tr>
+          </table>
+        </td>
+        <td colspan="6" style="padding-bottom: 15px">
+          <h4 style="text-align:center">SPP Asli</h4>
+          <img style="max-width: 500px" src="../images/spp.png"><img>
+        </td>
+      </tr>
+
+      <tr class="warning" ng-show="spp.isComparedError">
+        <td colspan="12" style="padding-bottom: 15px">
+          <h4 style="text-align:center">Trace Log</h4>
+          <table class="table table-bordered table-hover table-condensed table-responsive inside-table">
+            <tbody>
+              <tr class="success">
+                <th>Tipe</th>
+                <th>Pengirim</th>
+                <th>Waktu</th>
+                <th>Catatan</th>
+              </tr>
+              <tr ng-repeat="trace in tracelog">
+                <td data-title="'Tipe'">{{trace.type}}</td>
+                <td data-title="'Pengirim'">{{trace.sender}}</td>
+                <td data-title="'Waktu'">{{trace.time}}</td>
+                <td data-title="'Catatan'">{{trace.note}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+      </tr>
+      <br>
+
+    </tbody>
+  </table>
+  <!-- END OF SPP Table -->
+  </div>
+</div>
